@@ -9,13 +9,16 @@ import SwiftUI
 
 struct MovieDetailView: View {
     let viewModel : MovieDetailViewModel
-    @State var offset : CGFloat = UIScreen.main.bounds.height*0.6
+    @State var offset : CGFloat = UIScreen.main.bounds.height*0.4
     @State var currentOffset : CGFloat = .zero
     @State var endingOffsetY : CGFloat = .zero
     var body: some View {
         ZStack {
-            fullImage
-                .ignoresSafeArea()
+            VStack {
+                fullImage
+                    .edgesIgnoringSafeArea(.top)
+                Spacer()
+            }
             MovieDetailBottomView(viewModel: viewModel)
                 
                 .offset(y: offset)
@@ -48,16 +51,14 @@ struct MovieDetailView: View {
         AsyncImage(url: viewModel.getImageURL()){ image in
                         image
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .aspectRatio(contentMode: .fit)
                         .overlay {
                             Color.black
                                 .opacity(0.6)
                         }
                 } placeholder: {
                     ProgressView()
-                        .padding(.bottom,250)
                         .tint(Color.Text.systemBlack)
-                    
                 }
             
             

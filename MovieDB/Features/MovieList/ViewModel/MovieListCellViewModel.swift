@@ -15,7 +15,7 @@ class MovieListCellViewModel {
     }
     
     func getImageURL(movie : Movies) -> URL? {
-        guard let urlString = try? URLConfig().imageBaseURL().absoluteString, let posterPath = movie.posterPath else {
+        guard let urlString = try? URLConfig().imageBaseURL(original: true).absoluteString, let posterPath = movie.posterPath else {
             return nil
         }
         return URL(string: urlString + posterPath)

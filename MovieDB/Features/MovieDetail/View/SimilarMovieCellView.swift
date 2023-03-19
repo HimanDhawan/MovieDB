@@ -28,12 +28,13 @@ struct SimilarMovieCellView: View {
             
             VStack(alignment: .leading) {
                 Text(viewModel.movie.originalTitle)
-                    .lineLimit(2)
+                    .lineLimit(nil)
                     .font(Font.Body.smallSemiBold)
                     .foregroundColor(Color.Text.charcoal)
                     .padding(.top,20)
                 
             }
+            Spacer()
         }
     }
 }

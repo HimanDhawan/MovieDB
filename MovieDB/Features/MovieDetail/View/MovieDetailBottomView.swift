@@ -10,56 +10,52 @@ import SwiftUI
 struct MovieDetailBottomView: View {
     @StateObject var viewModel : MovieDetailViewModel
     var body: some View {
-        ZStack {
-            VStack(){
-                Rectangle()
-                    .frame(width: 40,height: 5)
-                    .cornerRadius(10)
-                VStack(alignment:.leading) {
-                    Text(viewModel.movie.title)
-                        .font(Font.Heading.medium)
-                        .foregroundColor(Color.Text.charcoal)
-                        .padding()
-                    Text("Release date : " + viewModel.movie.releaseDate)
-                        .font(Font.Body.smallSemiBold)
-                        .foregroundColor(Color.Text.grey)
-                        .padding(.leading)
-                    Text("Vote Average : " + viewModel.movie.voteAverage.description)
-                        .font(Font.Body.smallSemiBold)
-                        .foregroundColor(Color.Text.grey)
-                        .padding(.leading)
-                    Text(viewModel.movie.overview)
-                        .font(Font.Body.smallDescription)
-                        .foregroundColor(Color.Text.grey)
-                        .padding()
-                    Text("Similar Movies")
-                        .font(Font.Heading.medium)
-                        .foregroundColor(Color.Text.charcoal)
-                }
-                
-                    
-                ScrollView(.horizontal) {
-                    LazyHStack {
-                        ForEach(viewModel.similarMovies) { movie in
-                            SimilarMovieCellView(viewModel: .init(movie: movie))
-                                    .frame(width:150)
-                            
-                        }
-                    }
-                }
-                .frame(height: 200)
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.top,10)
-            .background(Color.Text.systemBlack)
-            .cornerRadius(20)
-            .onAppear{
-                self.viewModel.getSimilarMovies()
+        VStack(){
+            Rectangle()
+                .frame(width: 40,height: 5)
+                .cornerRadius(10)
+            VStack(alignment:.leading) {
+                Text(viewModel.movie.title)
+                    .font(Font.Heading.medium)
+                    .foregroundColor(Color.Text.charcoal)
+                    .padding()
+                Text("Release date : " + viewModel.movie.releaseDate)
+                    .font(Font.Body.smallSemiBold)
+                    .foregroundColor(Color.Text.grey)
+                    .padding(.leading)
+                Text("Vote Average : " + viewModel.movie.voteAverage.description)
+                    .font(Font.Body.smallSemiBold)
+                    .foregroundColor(Color.Text.grey)
+                    .padding(.leading)
+                Text(viewModel.movie.overview)
+                    .font(Font.Body.smallDescription)
+                    .foregroundColor(Color.Text.grey)
+                    .padding()
+                Text("Similar Movies")
+                    .font(Font.Heading.medium)
+                    .foregroundColor(Color.Text.charcoal)
             }
             
+                
+            ScrollView(.horizontal,showsIndicators: false) {
+                LazyHStack {
+                    ForEach(viewModel.similarMovies) { movie in
+                        SimilarMovieCellView(viewModel: .init(movie: movie))
+                                .frame(width:150)
+                        
+                    }
+                }
+            }
+            .frame(height: 200)
+            
         }
-        .ignoresSafeArea(edges : .bottom)
+        .frame(maxWidth: .infinity)
+        .padding(.top,10)
+        .background(Color.Text.systemBlack)
+        .cornerRadius(20)
+        .onAppear{
+            self.viewModel.getSimilarMovies()
+        }
     }
 }
 
