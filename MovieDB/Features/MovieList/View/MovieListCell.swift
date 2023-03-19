@@ -8,33 +8,37 @@
 import SwiftUI
 
 struct MovieListCell: View {
-    var movie : Movies
-    var viewModel : MovieListCellViewModel = MovieListCellViewModel()
+    var viewModel : MovieListCellViewModel
+    
     var body: some View {
-        HStack(alignment: .top) {
-            AsyncImage(url: viewModel.getImageURL(movie: movie)){ image in
-                            image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .cornerRadius(10)
-                            .shadow(radius: 20)
-                            .padding(.top,40)
-                            .padding(.trailing,5)
-                            
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: 110, height: 144)
+        NavigationLink (destination: MovieDetailView(viewModel: .init(movie: viewModel.movie))) {
+            HStack(alignment: .top) {
+                AsyncImage(url: viewModel.getImageURL(movie: viewModel.movie)){ image in
                     
-            VStack(alignment: .leading) {
-                Text(movie.originalTitle)
-                    .font(Font.Heading.medium)
-                    .foregroundColor(Color.Text.charcoal)
-                Text(movie.overview)
-                    .font(Font.Body.small)
-                    .foregroundColor(Color.Text.grey)
-                Spacer()
+                                image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .cornerRadius(10)
+                                .shadow(radius: 20)
+                                .padding(.top,40)
+                                .padding(.trailing,5)
+                                
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: 110, height: 144)
+                        
+                VStack(alignment: .leading) {
+                    Text(viewModel.movie.originalTitle)
+                        .font(Font.Heading.medium)
+                        .foregroundColor(Color.Text.charcoal)
+                    Text(viewModel.movie.overview)
+                        .font(Font.Body.small)
+                        .foregroundColor(Color.Text.grey)
+                    Spacer()
+                }
             }
         }
+        
     }
 }

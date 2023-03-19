@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieDetailView: View {
     let viewModel : MovieDetailViewModel
-    @State var offset : CGFloat = UIScreen.main.bounds.height*0.8
+    @State var offset : CGFloat = UIScreen.main.bounds.height*0.6
     @State var currentOffset : CGFloat = .zero
     @State var endingOffsetY : CGFloat = .zero
     var body: some View {
@@ -42,6 +42,7 @@ struct MovieDetailView: View {
                         })
                 )
         }
+        .background(Color.Text.systemWhite)
     }
     var fullImage : some View {
         AsyncImage(url: viewModel.getImageURL()){ image in
@@ -52,9 +53,11 @@ struct MovieDetailView: View {
                             Color.black
                                 .opacity(0.6)
                         }
-                        
                 } placeholder: {
                     ProgressView()
+                        .padding(.bottom,250)
+                        .tint(Color.Text.systemBlack)
+                    
                 }
             
             
