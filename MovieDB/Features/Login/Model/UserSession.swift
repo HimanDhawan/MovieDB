@@ -1,20 +1,20 @@
 //
-//  RequestToken.swift
+//  UserSession.swift
 //  MovieDB
 //
-//  Created by Himan Dhawan on 3/15/23.
+//  Created by Himan Dhawan on 3/21/23.
 //
 
 import Foundation
 
-struct RequestToken : Codable {
+struct UserSession : Codable {
     let success : Bool
-    let requestToken : String?
+    let sessionID : String?
     let statusMessage : String?
     
     enum CodingKeys: String, CodingKey {
         case success = "success"
-        case requestToken = "request_token"
+        case sessionID = "session_id"
         case statusMessage = "status_message"
     }
 }

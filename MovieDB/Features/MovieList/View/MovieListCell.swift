@@ -8,25 +8,28 @@
 import SwiftUI
 
 struct MovieListCell: View {
-    var viewModel : MovieListCellViewModel
+    @StateObject var viewModel : MovieListCellViewModel
+    
+    init(movie: Movies, dataService : MovieListCellDataServiceProtocol = MovieListCellDataService() ) {
+        _viewModel = StateObject(wrappedValue: MovieListCellViewModel.init(movie: movie, dataService: dataService))
+    }
     
     var body: some View {
-        NavigationLink (destination: MovieDetailView(viewModel: .init(movie: viewModel.movie))) {
+        NavigationLink (destination: MovieDetailView(movie: self.viewModel.movie)) {
             HStack(alignment: .top) {
-                AsyncImage(url: viewModel.getImageURL(movie: viewModel.movie)){ image in
-                    
-                                image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .cornerRadius(10)
-                                .shadow(radius: 20)
-                                .padding(.top,40)
-                                .padding(.trailing,5)
-                                
-                        } placeholder: {
-                            ProgressView()
-                        }
+                if let image = viewModel.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(10)
+                        .shadow(radius: 20)
+                        .padding(.top,10)
                         .frame(width: 110, height: 144)
+                        
+                } else {
+                    ProgressView()
+                        .frame(width: 110, height: 144)
+                }
                         
                 VStack(alignment: .leading) {
                     Text(viewModel.movie.originalTitle)
@@ -36,6 +39,11 @@ struct MovieListCell: View {
                         .font(Font.Body.small)
                         .foregroundColor(Color.Text.grey)
                     Spacer()
+                }
+            }
+            .onAppear{
+                Task(priority: .background) {
+                    await viewModel.getImageURL()
                 }
             }
         }

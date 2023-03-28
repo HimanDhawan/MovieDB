@@ -1,13 +1,13 @@
 //
-//  RequestToken.swift
+//  LoginResult.swift
 //  MovieDB
 //
-//  Created by Himan Dhawan on 3/15/23.
+//  Created by Himan Dhawan on 3/21/23.
 //
 
 import Foundation
 
-struct RequestToken : Codable {
+struct LoginResult : Codable {
     let success : Bool
     let requestToken : String?
     let statusMessage : String?

@@ -18,16 +18,22 @@ final class LoginViewModel : ObservableObject {
     @Published var validUserName : Bool = false
     @Published var validPassword : Bool = false
     
-    @Published var userName : String = ""
-    @Published var password : String = ""
+    @Published var userName : String = "himandhawan"
+    @Published var password : String = "Champion_movie01"
+    
+    @Published var error : String = ""
+    @Published var showError : Bool = false
+    
+    @Published var isLoading = false
     
     @Published var navigateToNextScreen : Bool = false
     
     var anyCancelabeles : Set<AnyCancellable> = []
     
-    let apiRouter = APIRouter<OnboardingAPIRequest>()
+    let loginService : LoginDataServiceProtocol
     
-    init() {
+    init(loginService: LoginDataServiceProtocol) {
+        self.loginService = loginService
         self.addSubscribers()
     }
     
@@ -36,79 +42,32 @@ final class LoginViewModel : ObservableObject {
 // MARK: - IB Actions
 
 extension LoginViewModel {
-    func loginTapped() {
-        
-        navigateToNextScreen = true
-        return
-        let publisher : AnyPublisher<RequestToken,Error> = apiRouter.request(.createRequestToken(apiKey: token))
-        
-        publisher
-            .flatMap({ rToken in
-                let publisher : AnyPublisher<RequestToken,Error> = self.apiRouter.request(.login(userName: self.userName, password: self.password, requestToken: rToken.requestToken, apiKey: self.token))
-                return publisher
+
+    func loginTapped() async {
+        do {
+            await MainActor.run(body: {
+                isLoading = true
             })
             
-//            .flatMap { rToken in
-//                let publisher : AnyPublisher<RequestToken,Error> = self.apiRouter.request(.login(userName: self.userName, password: self.password, requestToken: rToken.requestToken, apiKey: self.token))
-//                return publisher
-//
-//            }
-        
-        publisher
-            .flatMap ({ rToken in
-                let publisher : AnyPublisher<RequestToken,Error> = self.apiRouter.request(.login(userName: self.userName, password: self.password, requestToken: rToken.requestToken, apiKey: self.token))
-                return publisher
+            let session =  try await self.loginService.login(userName: userName, password: password)
+            
+            await MainActor.run(body: {
+                isLoading = false
+                self.navigateToNextScreen = true
             })
-        
-//            .sink { completion in
-//                switch completion {
-//                case .finished: print("Finished")
-//                case .failure(let error): print("Error \(error)")
-//                }
-//            } receiveValue: { [weak self] value in
-//                print("-----value----")
-//                print(value)
-//                self?.loginWithRequestToken(rToken: value.requestToken)
-//                print("---------")
-//            }
-//            .store(in: &anyCancelabeles)
-    }
-    
-    func loginWithRequestToken(rToken : String) {
-        let publisher : AnyPublisher<RequestToken,Error> = apiRouter.request(.login(userName: userName, password: password, requestToken: rToken, apiKey: token))
-        
-        publisher
-            .sink { completion in
-                switch completion {
-                case .finished: print("Finished")
-                case .failure(let error): print("Error \(error)")
-                }
-            } receiveValue: { value in
-                
-            }
-            .store(in: &anyCancelabeles)
-
-    }
-    
-    func loginTappedWithCompletion() async {
-        let router = APIRouter1<OnboardingAPIRequest,CreateRequestTokenAPIResponse>()
-        router.request(.createRequestToken(apiKey: token)) { response in
-            if let data = response.deSerializedData {
-                
-            }
-        }
-    }
-    
-    func loginTappedWithAsync() async {
-        do {
-            let router = APIRouter3<OnboardingAPIRequest,CreateRequestTokenAPIResponse>()
-            let response = try await router.request(.createRequestToken(apiKey: token))
-            print("response \(response?.deSerializedData)")
+            
+            print(session.sessionID as Any)
         } catch {
-            print(error)
+            await MainActor.run(body: {
+                isLoading = false
+                self.error = error.localizedDescription
+                showError = true
+                print(error)
+            })
+            
         }
     }
-    
+        
 }
 
 // MARK: - Subscribers

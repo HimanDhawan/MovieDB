@@ -9,38 +9,27 @@ import Foundation
 import Combine
 
 class MovieListViewModel : ObservableObject {
+    
+    // Published variables
     @Published var movies : [Movies] = []
     @Published var moviesCount : String = "0"
     
     @Published var selectedMovie: Movies? = nil
     @Published var isSelected: Bool = false
     
-    let token = "076c9dad29e213f91dbbe7a82aa1da1d"
+    let movieListService : MovieListDataServiceProtocol
     
-    let apiRouter = APIRouter<MoviesAPIRequest>()
-    var anyCancelabels : Set<AnyCancellable> = []
-    
-    init() {
-
+    init(movieListService: MovieListDataServiceProtocol) {
+        self.movieListService = movieListService
     }
     
-    func getAllPopularMovies() {
-        let publisher : AnyPublisher<MovieResultData,Error> = apiRouter.request(.getMovies(apiKey: token))
-        publisher
-            
-            .sink { completion in
-                switch completion {
-                case .finished: print("Finished")
-                case .failure(let error): print("Error \(error)")
-                    
-                }
-            } receiveValue: { movies in
-                print(movies)
-                self.movies = movies.results
-                self.moviesCount = movies.results.count.description
-                
-            }
-            .store(in: &anyCancelabels)
+    func getAllPopularMovies() async {
+        do {
+            self.movies = try await self.movieListService.getAllPopularMovies()
+            self.moviesCount = self.movies.count.description
+        } catch {
+            print("Error \(error)")
+        }
 
     }
     

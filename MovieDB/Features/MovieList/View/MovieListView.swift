@@ -11,13 +11,16 @@ import SwiftUI
 
 struct MovieListView: View {
     
-    @StateObject var viewModel = MovieListViewModel()
+    @StateObject var viewModel : MovieListViewModel
     
+    init(listService : MovieListDataServiceProtocol = MovieListDataService()) {
+        _viewModel = StateObject(wrappedValue: MovieListViewModel.init(movieListService: listService))
+    }
     
     var body: some View {
         List(viewModel.movies) { movie in
             
-            MovieListCell(viewModel: .init(movie: movie))
+            MovieListCell(movie: movie)
                 .listRowInsets(EdgeInsets(top: 5, leading: 5, bottom: 10, trailing: 5))
                 .frame(minHeight: 200)
                 
@@ -26,7 +29,9 @@ struct MovieListView: View {
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden()
         .onAppear {
-            self.viewModel.getAllPopularMovies()
+            Task {
+                await self.viewModel.getAllPopularMovies()
+            }
         }
         .onDisappear{
             self.viewModel.isSelected = false

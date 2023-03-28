@@ -55,7 +55,7 @@ extension OnboardingAPIRequest: APIRequestProtocol {
     var task: HTTPTask {
         switch self {
         case .login(userName: let userName, password: let password, requestToken: let requestToken, apiKey: let apiKey): do {
-            return .requestParameters(bodyParameters: ["username" : userName, "password" : password, "request_token" : requestToken], bodyEncoding: .jsonEncoding, urlParameters: ["api_key" : apiKey])
+            return .requestParameters(bodyParameters: ["username" : userName, "password" : password, "request_token" : requestToken], bodyEncoding: .urlAndJsonEncoding, urlParameters: ["api_key" : apiKey])
         }
                 
         case .createRequestToken(apiKey: let apiKey): do {
@@ -68,7 +68,12 @@ extension OnboardingAPIRequest: APIRequestProtocol {
     }
     
     var headers: HTTPHeaders? {
-        [:]
+        switch self {
+        case .login:
+            return ["Content-Type": "application/json"]
+        default :
+            return [:]
+        }
     }
     
 }

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var viewModel = LoginViewModel()
+    @StateObject var viewModel : LoginViewModel
     
-    init(){
+    init(loginService : LoginDataServiceProtocol){
+        _viewModel = StateObject(wrappedValue: LoginViewModel.init(loginService: loginService))
         UITableView.appearance().backgroundColor = .clear
     }
     
@@ -19,6 +20,7 @@ struct LoginView: View {
             ZStack {
                 fullImage
                     .ignoresSafeArea()
+                
                 ScrollView {
                     VStack() {
                         Text("The Movie DB")
@@ -36,7 +38,10 @@ struct LoginView: View {
                                     Image(systemName: "person.circle")
                                     TextField(text: $viewModel.userName, prompt: Text("Username")) {
 
-                                    }.overlay(alignment: .trailing) {
+                                    }
+                                    .autocorrectionDisabled(true)
+                                    .textInputAutocapitalization(.never)
+                                    .overlay(alignment: .trailing) {
                                         
                                         Image(systemName: "checkmark.circle.fill").foregroundColor(.green).opacity(self.viewModel.validUserName ? 1.0 : 0.0)
                                         
@@ -67,8 +72,10 @@ struct LoginView: View {
                         
                         
                         Button ( action :{
+                            Task {
+                                await viewModel.loginTapped()
+                            }
                             
-                            viewModel.loginTapped()
                         }) {
                             Text("LOGIN")
                                 .fontWeight(.heavy)
@@ -85,9 +92,14 @@ struct LoginView: View {
                         .cornerRadius(5)
                         .opacity((self.viewModel.validPassword && self.viewModel.validUserName) ? 1.0 : 0.5)
                         .disabled((self.viewModel.validPassword && self.viewModel.validUserName) ? false : true)
+                        .alert(isPresented: $viewModel.showError) {
+                            return Alert(title: Text("Error"),message: Text(self.viewModel.error))
+                        }
                     }
                 }
-                
+                if viewModel.isLoading {
+                    CustomLoadingIndicator()
+                }
                 
             }
         }
@@ -111,6 +123,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView()
+        LoginView(loginService: LoginDataService())
     }
 }

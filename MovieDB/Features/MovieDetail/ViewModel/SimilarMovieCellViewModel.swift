@@ -16,7 +16,7 @@ class SimilarMovieCellViewModel {
     }
     
     func getImageURL() -> URL? {
-        guard let urlString = try? URLConfig().imageBaseURL().absoluteString, let posterPath = movie.posterPath else {
+        guard let urlString = try? URLConfig().imageBaseURL(original: false).absoluteString, let posterPath = movie.posterPath else {
             return nil
         }
         return URL(string: urlString + posterPath)

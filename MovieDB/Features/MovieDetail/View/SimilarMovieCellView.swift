@@ -11,6 +11,7 @@ struct SimilarMovieCellView: View {
     let viewModel : SimilarMovieCellViewModel
     var body: some View {
         VStack(alignment: .center,spacing: 10) {
+            
             AsyncImage(url: viewModel.getImageURL()){ image in
                 
                             image

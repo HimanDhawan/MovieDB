@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MovieDetailBottomView: View {
-    @StateObject var viewModel : MovieDetailViewModel
+    @ObservedObject var viewModel : MovieDetailViewModel
     var body: some View {
         VStack(){
             Rectangle()
@@ -32,6 +32,7 @@ struct MovieDetailBottomView: View {
                     .foregroundColor(Color.Text.grey)
                     .padding()
                 Text("Similar Movies")
+                    .padding(.leading)
                     .font(Font.Heading.medium)
                     .foregroundColor(Color.Text.charcoal)
             }
@@ -47,20 +48,23 @@ struct MovieDetailBottomView: View {
                 }
             }
             .frame(height: 200)
-            
+            .padding(.leading)
+            Spacer(minLength: 100)
         }
         .frame(maxWidth: .infinity)
         .padding(.top,10)
         .background(Color.Text.systemBlack)
         .cornerRadius(20)
         .onAppear{
-            self.viewModel.getSimilarMovies()
+            Task {
+                await self.viewModel.getSimilarMovies()
+            }
         }
     }
 }
 
 struct MovieDetailBottomView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieDetailBottomView(viewModel: .init(movie: .init(id: 123, adult: false, originalTitle: "RRR", overview: "RRR is very good movie", title: "RRR", posterPath: "/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg", releaseDate: "12-20-23", voteAverage: 2)))
+        MovieDetailBottomView(viewModel: .init(movie: .init(id: 123, adult: false, originalTitle: "RRR", overview: "RRR is very good movie", title: "RRR", posterPath: "/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg", releaseDate: "12-20-23", voteAverage: 2), dataService: MovieDetailDataService()))
     }
 }

@@ -7,41 +7,58 @@
 
 import Foundation
 import Combine
+import UIKit
 
 class MovieDetailViewModel : ObservableObject {
     let movie : Movies
-    let apiRouter = APIRouter<MoviesAPIRequest>()
+    
     @Published var similarMovies : [Movies] = []
-    let token = "076c9dad29e213f91dbbe7a82aa1da1d"
+    @Published var image : UIImage? = nil
+    @Published var isOriginal : Bool = false
+    
     var anyCancelabels : Set<AnyCancellable> = []
-    init(movie: Movies) {
+    
+    let dataService : MovieDetailDataServiceProtocol
+    
+    init(movie: Movies, dataService : MovieDetailDataServiceProtocol) {
         self.movie = movie
+        self.dataService = dataService
     }
     
-    func getImageURL() -> URL? {
-        guard let urlString = try? URLConfig().imageBaseURL(original: true).absoluteString, let posterPath = movie.posterPath else {
-            return nil
+    func showImage() async {
+        do {
+            let smallimage = try await self.dataService.getImage(movie: self.movie, original: false)
+            await MainActor.run(body: {
+                self.image = smallimage
+                isOriginal = false
+            })
+            let bigImage = try await self.dataService.getImage(movie: self.movie, original: true)
+            await MainActor.run(body: {
+                self.image = bigImage
+                isOriginal = true
+            })
+        } catch {
+            await MainActor.run(body: {
+                self.image = UIImage(systemName: "photo.artframe")
+                isOriginal = true
+            })
         }
-        print("urlString + posterPath \(urlString + posterPath)")
-        return URL(string: urlString + posterPath)
     }
-    func getSimilarMovies() {
-        let publisher : AnyPublisher<MovieResultData,Error> = apiRouter.request(.similarMovies(apiKey: token, movieID: movie.id.description))
-        publisher
-            .sink { completion in
-                switch completion {
-                case .finished: print("Finished")
-                case .failure(let error): print("Error \(error)")
-                    
-                }
-            } receiveValue: { movies in
-                print(movies)
-                self.similarMovies = movies.results
-                
-            }
-            .store(in: &anyCancelabels)
+    
+    func getSimilarMovies() async {
 
+        do {
+            let list : [Movies] = try await dataService.getSimilarMovies(movie: self.movie)
+            await MainActor.run(body: {
+                self.similarMovies = list
+            })
+            
+        } catch {
+            print("Error \(error)")
+        }
+        
     }
+    
 }
 
 

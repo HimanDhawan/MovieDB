@@ -6,18 +6,37 @@
 //
 
 import Foundation
+import UIKit
 
-class MovieListCellViewModel {
-    let movie : Movies
+
+class MovieListCellViewModel : ObservableObject {
     
-    init(movie : Movies) {
+    let movie : Movies
+    let dataService : MovieListCellDataServiceProtocol
+    
+    @Published var image : UIImage? = nil
+    
+    init(movie : Movies, dataService : MovieListCellDataServiceProtocol) {
         self.movie = movie
+        self.dataService = dataService
     }
     
-    func getImageURL(movie : Movies) -> URL? {
-        guard let urlString = try? URLConfig().imageBaseURL(original: true).absoluteString, let posterPath = movie.posterPath else {
-            return nil
+    func getImageURL() async {
+        do {
+            
+            let image = try await dataService.getImageURL(movie: self.movie)
+            await MainActor.run(body: {
+                self.image = image
+            })
+            
+        } catch {
+            await MainActor.run(body: {
+                self.image = UIImage(systemName: "photo.artframe")
+            })
+            
+            print(error)
         }
-        return URL(string: urlString + posterPath)
+        
+        
     }
 }
