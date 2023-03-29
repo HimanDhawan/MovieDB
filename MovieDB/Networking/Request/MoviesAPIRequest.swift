@@ -15,6 +15,8 @@ enum MoviesAPIRequest {
     
     case similarMovies(apiKey : String, movieID : String)
     
+    case cast(apiKey : String, movieID : String)
+    
 }
 
 extension MoviesAPIRequest: APIRequestProtocol {
@@ -25,19 +27,21 @@ extension MoviesAPIRequest: APIRequestProtocol {
             return "movie/popular"
         case .similarMovies(apiKey: _, movieID : let movieID):
             return "movie/\(movieID)/similar"
+        case .cast(apiKey: _, movieID: let movieID):
+            return "movie/\(movieID)/credits"
         }
         
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .getMovies,.similarMovies: return .get
+        case .getMovies,.similarMovies,.cast: return .get
         }
     }
     
     var task: HTTPTask {
         switch self {
-        case .getMovies(apiKey: let apiKey),.similarMovies(apiKey: let apiKey, movieID: _): do {
+        case .getMovies(apiKey: let apiKey),.similarMovies(apiKey: let apiKey, movieID: _), .cast(apiKey: let apiKey, movieID: _): do {
             return .requestParametersAndHeaders(bodyParameters: nil, bodyEncoding: .urlEncoding, urlParameters: ["api_key" : apiKey], additionHeaders: nil)
         }
         }

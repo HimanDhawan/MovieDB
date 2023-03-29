@@ -20,7 +20,7 @@ struct Movies : Codable, Identifiable {
     let overview : String
     let title : String
     let posterPath : String?
-    let releaseDate : String
+    let releaseDate : String?
     let voteAverage : Double
     
     enum CodingKeys: String, CodingKey {

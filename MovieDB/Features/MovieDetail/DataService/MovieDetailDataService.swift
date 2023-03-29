@@ -12,9 +12,11 @@ protocol MovieDetailDataServiceProtocol {
     var router : APIRouter<MoviesAPIRequest> {get}
     func getImage(movie : Movies, original : Bool) async throws -> UIImage
     func getSimilarMovies(movie : Movies) async throws -> [Movies]
+    func getCasts(movie : Movies) async throws -> [Cast]
 }
 
 class MovieDetailDataService: MovieDetailDataServiceProtocol {
+    
     var router: APIRouter<MoviesAPIRequest>
     
     let token = "076c9dad29e213f91dbbe7a82aa1da1d"
@@ -41,6 +43,11 @@ class MovieDetailDataService: MovieDetailDataServiceProtocol {
         let list : MovieResultData = try await router.request(.similarMovies(apiKey: token, movieID: movie.id.description))
         return list.results
         
+    }
+    
+    func getCasts(movie: Movies) async throws -> [Cast] {
+        let data : CastResultData = try await router.request(.cast(apiKey: token, movieID: movie.id.description))
+        return data.cast
     }
     
 }

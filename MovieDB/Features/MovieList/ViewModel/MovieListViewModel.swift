@@ -25,8 +25,11 @@ class MovieListViewModel : ObservableObject {
     
     func getAllPopularMovies() async {
         do {
-            self.movies = try await self.movieListService.getAllPopularMovies()
-            self.moviesCount = self.movies.count.description
+            let movies  = try await self.movieListService.getAllPopularMovies()
+            await MainActor.run(body: {
+                self.movies = movies
+                self.moviesCount = movies.count.description
+            })
         } catch {
             print("Error \(error)")
         }

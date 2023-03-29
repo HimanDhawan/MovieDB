@@ -12,6 +12,7 @@ import UIKit
 class MovieDetailViewModel : ObservableObject {
     let movie : Movies
     
+    @Published var cast : [Cast] = []
     @Published var similarMovies : [Movies] = []
     @Published var image : UIImage? = nil
     @Published var isOriginal : Bool = false
@@ -51,6 +52,20 @@ class MovieDetailViewModel : ObservableObject {
             let list : [Movies] = try await dataService.getSimilarMovies(movie: self.movie)
             await MainActor.run(body: {
                 self.similarMovies = list
+            })
+            
+        } catch {
+            print("Error \(error)")
+        }
+        
+    }
+    
+    func getCasts() async {
+
+        do {
+            let list : [Cast] = try await dataService.getCasts(movie: self.movie)
+            await MainActor.run(body: {
+                self.cast = list
             })
             
         } catch {

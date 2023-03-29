@@ -49,8 +49,8 @@ struct MovieDetailView: View {
             }
             
             if viewModel.isOriginal == false {
-                ProgressView()
-                    .padding(.bottom,100)
+                CustomLoadingIndicator()
+                    .padding(.bottom,200)
                     .tint(Color.Text.systemBlack)
                     
             }
@@ -68,6 +68,7 @@ struct MovieDetailView: View {
                             }
                         })
                         .onEnded({ value in
+                            
                             withAnimation(.spring()) {
                                 if currentOffset < -150 {
                                     endingOffsetY = -offset + UIScreen.main.bounds.height*0.1
