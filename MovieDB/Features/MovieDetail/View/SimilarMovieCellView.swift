@@ -8,38 +8,42 @@
 import SwiftUI
 
 struct SimilarMovieCellView: View {
-    let viewModel : SimilarMovieCellViewModel
+    @StateObject var viewModel : SimilarMovieCellViewModel
     var body: some View {
-        VStack(alignment: .center,spacing: 10) {
-            AsyncImage(url: viewModel.getImageURL()){ image in
-                            image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .cornerRadius(10)
-                            .shadow(radius: 20)
-                            .padding(.top,40)
-                            .padding(.trailing,5)
-                            
-                    } placeholder: {
-                        ProgressView()
-                    }
+        VStack(alignment: .center,spacing: 0) {
+            Spacer()
+            if let image = viewModel.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .cornerRadius(10)
+                    .frame(width: 100, height: 144)
+                    
+            } else {
+                ProgressView()
                     .frame(width: 110, height: 144)
+            }
             
             VStack(alignment: .leading) {
                 Text(viewModel.movie.originalTitle)
                     .lineLimit(nil)
                     .font(Font.Body.smallSemiBold)
                     .foregroundColor(Color.Text.charcoal)
-                    .padding(.top,20)
+                    .padding(.top,5)
                 
             }
             Spacer()
+        }
+        .onAppear{
+            Task {
+                await viewModel.getImageURL()
+            }
         }
     }
 }
 
 struct SimilarMovieCellView_Previews: PreviewProvider {
     static var previews: some View {
-        SimilarMovieCellView(viewModel: .init(movie: .init(id: 123, adult: false, originalTitle: "RRR", overview: "RRR is very good movie", title: "RRR", posterPath: "/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg", releaseDate: "12-20-23", voteAverage: 2)))
+        SimilarMovieCellView(viewModel: .init(movie: .init(id: 123, adult: false, originalTitle: "RRR", overview: "RRR is very good movie", title: "RRR", posterPath: "/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg", releaseDate: "12-20-23", voteAverage: 2), dataService: SimilarMovieCellDataService()))
     }
 }

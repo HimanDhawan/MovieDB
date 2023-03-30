@@ -24,6 +24,9 @@ class APIRouter<Request: APIRequestProtocol> {
             
             let (data,_) = try await URLSession.shared.data(for: request)
             
+            let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+
+            
             return try JSONDecoder().decode(Model.self, from: data)
             
         } catch {

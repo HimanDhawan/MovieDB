@@ -87,84 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "742BCE4A-2362-4C7D-94B6-4353F87184D1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "MovieDB/Features/MovieDetail/ViewModel/MovieDetailViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "getSimilarMovies()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "742BCE4A-2362-4C7D-94B6-4353F87184D1 - aab6ce7bd42b4e5c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for MovieDB.MovieDetailViewModel.getSimilarMovies() async -&gt; ()"
-                  moduleName = "MovieDB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/ViewModel/MovieDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "128">
-               </Location>
-               <Location
-                  uuid = "742BCE4A-2362-4C7D-94B6-4353F87184D1 - 9252a588d6b44ca8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) await resume partial function for MovieDB.MovieDetailViewModel.getSimilarMovies() async -&gt; ()"
-                  moduleName = "MovieDB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/ViewModel/MovieDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "56">
-               </Location>
-               <Location
-                  uuid = "742BCE4A-2362-4C7D-94B6-4353F87184D1 - 5c27edb82084324a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for MovieDB.MovieDetailViewModel.getSimilarMovies() async -&gt; ()"
-                  moduleName = "MovieDB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/ViewModel/MovieDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "742BCE4A-2362-4C7D-94B6-4353F87184D1 - 55e7520a7fef819e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor @Sendable () -&gt; () in MovieDB.MovieDetailViewModel.getSimilarMovies() async -&gt; ()"
-                  moduleName = "MovieDB"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/ViewModel/MovieDetailViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "56">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "3ADE17E6-C2EE-4452-A7E8-F9AA29691345"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -176,6 +98,208 @@
             endingLineNumber = "44"
             landmarkName = "getSimilarMovies(movie:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E6382B94-478D-4F16-AA6B-0B2A3E9D3BEF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieDB/Features/MovieDetail/ViewModel/SimilarMovieCellViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "getImageURL()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1CFC19EA-49D2-4A79-BAD8-D1AE77C3B8FC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "getImageURL(movie:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1CFC19EA-49D2-4A79-BAD8-D1AE77C3B8FC - 5fe7ea02bc23932a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "1CFC19EA-49D2-4A79-BAD8-D1AE77C3B8FC - 5fe7ea02bc23932a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "448">
+               </Location>
+               <Location
+                  uuid = "1CFC19EA-49D2-4A79-BAD8-D1AE77C3B8FC - 5fe7ea02bc23932a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "536">
+               </Location>
+               <Location
+                  uuid = "1CFC19EA-49D2-4A79-BAD8-D1AE77C3B8FC - 5fe7ea02bc23932a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "640">
+               </Location>
+               <Location
+                  uuid = "1CFC19EA-49D2-4A79-BAD8-D1AE77C3B8FC - 5fe7ea02bc23932a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "736">
+               </Location>
+               <Location
+                  uuid = "1CFC19EA-49D2-4A79-BAD8-D1AE77C3B8FC - ebd81c768114572c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "300">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B2EC305C-514D-447D-A510-D6608BF45885"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "getImageURL(movie:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B2EC305C-514D-447D-A510-D6608BF45885 - 5fe7ea02bc239396"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "848">
+               </Location>
+               <Location
+                  uuid = "B2EC305C-514D-447D-A510-D6608BF45885 - c473c0d483129dba"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "B2EC305C-514D-447D-A510-D6608BF45885 - ebd81c7681145790"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "76">
+               </Location>
+               <Location
+                  uuid = "B2EC305C-514D-447D-A510-D6608BF45885 - 51bd59ac8c81b991"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for MovieDB.SimilarMovieCellDataService.getImageURL(movie: MovieDB.Movies) async throws -&gt; __C.UIImage"
+                  moduleName = "MovieDB"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hdhawan/Documents/SwiftUI/MovieDB/MovieDB/Features/MovieDetail/DataService/SimilarMovieCellDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -20,7 +20,7 @@ struct CustomLoadingIndicator: View {
             ZStack {
                 Rectangle()
                     .frame(width: 80, height: 80)
-                    .foregroundColor(Color.Text.systemWhite)
+                    .foregroundColor(Color.Text.loaderColor)
                     .cornerRadius(10)
                     .shadow(radius: 30)
                     .shadow(color: Color.gray.opacity(0.4), radius: 20, x: 0, y: 10)

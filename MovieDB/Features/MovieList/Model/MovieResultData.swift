@@ -21,7 +21,7 @@ struct Movies : Codable, Identifiable {
     let title : String
     let posterPath : String?
     let releaseDate : String?
-    let voteAverage : Double
+    let voteAverage : Double?
     
     enum CodingKeys: String, CodingKey {
         case id = "id"

@@ -15,6 +15,7 @@ extension Color {
         static let systemWhite: Color = Color("SystemWhite")
         static let systemBlack: Color = Color("SystemBlack")
         static let grey: Color = Color("grey")
+        static let loaderColor : Color = Color("Loader")
         static let white: Color = Color.white
         static let blue: Color = Color.blue
     }

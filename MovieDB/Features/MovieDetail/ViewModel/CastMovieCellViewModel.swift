@@ -6,20 +6,37 @@
 //
 
 import Foundation
+import UIKit
 
-class CastMovieCellViewModel {
+class CastMovieCellViewModel : ObservableObject {
     
     let cast : Cast
+    let dataService : CastMovieCellDataServiceProtocol
     
-    init(cast: Cast) {
+    @Published var image : UIImage? = nil
+    
+    init(cast: Cast, dataService : CastMovieCellDataServiceProtocol = CastMovieCellDataService()) {
         self.cast = cast
+        self.dataService = dataService
     }
-    
-    func getImageURL() -> URL? {
-        guard let urlString = try? URLConfig().imageBaseURL(original: false).absoluteString, let posterPath = cast.profilePath else {
-            return nil
+        
+    func getImageURL() async {
+        do {
+            
+            let image = try await dataService.getImageURL(cast: self.cast)
+            await MainActor.run(body: {
+                self.image = image
+            })
+            
+        } catch {
+            await MainActor.run(body: {
+                self.image = UIImage(systemName: "photo.artframe")
+            })
+            
+            print(error)
         }
-        return URL(string: urlString + posterPath)
+        
+        
     }
     
 }

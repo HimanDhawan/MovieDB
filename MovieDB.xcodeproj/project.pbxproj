@@ -24,6 +24,8 @@
 		594C560B29D43B6D005FD017 /* Cast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594C560A29D43B6D005FD017 /* Cast.swift */; };
 		594C560F29D43D1A005FD017 /* CastMovieCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594C560E29D43D1A005FD017 /* CastMovieCellView.swift */; };
 		594C561129D43D31005FD017 /* CastMovieCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594C561029D43D31005FD017 /* CastMovieCellViewModel.swift */; };
+		594C561329D5555E005FD017 /* SimilarMovieCellDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594C561229D5555E005FD017 /* SimilarMovieCellDataService.swift */; };
+		594C561529D557E4005FD017 /* CastMovieCellDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594C561429D557E4005FD017 /* CastMovieCellDataService.swift */; };
 		595E0A6129C04CAF00B92089 /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E0A6029C04CAF00B92089 /* MovieListView.swift */; };
 		595E0A6329C04D4C00B92089 /* MovieListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E0A6229C04D4C00B92089 /* MovieListViewModel.swift */; };
 		595E0A6729C0606800B92089 /* APIRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595E0A6629C0606800B92089 /* APIRequestProtocol.swift */; };
@@ -108,6 +110,8 @@
 		594C560A29D43B6D005FD017 /* Cast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cast.swift; sourceTree = "<group>"; };
 		594C560E29D43D1A005FD017 /* CastMovieCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMovieCellView.swift; sourceTree = "<group>"; };
 		594C561029D43D31005FD017 /* CastMovieCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMovieCellViewModel.swift; sourceTree = "<group>"; };
+		594C561229D5555E005FD017 /* SimilarMovieCellDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMovieCellDataService.swift; sourceTree = "<group>"; };
+		594C561429D557E4005FD017 /* CastMovieCellDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMovieCellDataService.swift; sourceTree = "<group>"; };
 		595E0A6029C04CAF00B92089 /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		595E0A6229C04D4C00B92089 /* MovieListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewModel.swift; sourceTree = "<group>"; };
 		595E0A6629C0606800B92089 /* APIRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestProtocol.swift; sourceTree = "<group>"; };
@@ -266,6 +270,8 @@
 			isa = PBXGroup;
 			children = (
 				594C560329D2EAD3005FD017 /* MovieDetailDataService.swift */,
+				594C561229D5555E005FD017 /* SimilarMovieCellDataService.swift */,
+				594C561429D557E4005FD017 /* CastMovieCellDataService.swift */,
 			);
 			path = DataService;
 			sourceTree = "<group>";
@@ -661,6 +667,7 @@
 				5994306929C2F9EF00B266B8 /* CreateRequestTokenAPIResponse.swift in Sources */,
 				599D2D1C29B0B874005536A0 /* LoginView.swift in Sources */,
 				5994307329C46EE900B266B8 /* MovieListCell.swift in Sources */,
+				594C561329D5555E005FD017 /* SimilarMovieCellDataService.swift in Sources */,
 				594C560929D3154C005FD017 /* Orientation.swift in Sources */,
 				5994308D29C61EE200B266B8 /* MovieDetailBottomView.swift in Sources */,
 				5994307C29C5BBE000B266B8 /* Font.swift in Sources */,
@@ -677,6 +684,7 @@
 				595E0A6729C0606800B92089 /* APIRequestProtocol.swift in Sources */,
 				5994308929C6148900B266B8 /* MovieDetailViewModel.swift in Sources */,
 				5994309129C715BC00B266B8 /* SimilarMovieCellViewModel.swift in Sources */,
+				594C561529D557E4005FD017 /* CastMovieCellDataService.swift in Sources */,
 				595E0A8D29C1BE1800B92089 /* RequestToken.swift in Sources */,
 				5994309D29C9CE9700B266B8 /* LoginDataService.swift in Sources */,
 				5994306E29C2FA4600B266B8 /* APIResponseProtocol.swift in Sources */,

@@ -8,23 +8,24 @@
 import SwiftUI
 
 struct CastMovieCellView: View {
-    let viewModel : CastMovieCellViewModel
+    @StateObject var viewModel : CastMovieCellViewModel
     var body: some View {
         VStack(alignment: .center,spacing: 10) {
-            AsyncImage(url: viewModel.getImageURL()){ image in
-                            image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .cornerRadius(10)
-                            .shadow(radius: 20)
-                            .padding(.top,40)
-                            .padding(.trailing,5)
-                            
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: 90, height: 134)
             
+            if let image = viewModel.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .cornerRadius(10)
+                    .padding(.top,40)
+                    .padding(.trailing,5)
+                    .frame(width: 100, height: 134)
+
+            } else {
+                ProgressView()
+                    .frame(width: 100, height: 134)
+            }
+                        
             VStack(alignment: .leading) {
                 Text(viewModel.cast.name)
                     .lineLimit(nil)
@@ -34,6 +35,11 @@ struct CastMovieCellView: View {
                 
             }
             Spacer()
+        }
+        .onAppear{
+            Task {
+                await self.viewModel.getImageURL()
+            }
         }
     }
 }

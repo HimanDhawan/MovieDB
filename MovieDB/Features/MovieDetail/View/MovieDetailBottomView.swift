@@ -9,113 +9,115 @@ import SwiftUI
 
 struct MovieDetailBottomView: View {
     @ObservedObject var viewModel : MovieDetailViewModel
+
     var body: some View {
         VStack(){
             Rectangle()
                 .frame(width: 40,height: 5)
                 .cornerRadius(10)
                 
-            ScrollView {
-                VStack(alignment:.leading) {
+                VStack(alignment:.leading,spacing: -5) {
                     Text(viewModel.movie.title)
                         .font(Font.Heading.medium)
                         .foregroundColor(Color.Text.charcoal)
-                        .padding()
-                    HStack {
-                        VStack(alignment:.leading) {
-                            Text("Release date : " + (viewModel.movie.releaseDate ?? "Not mentioned"))
-                                .font(Font.Body.smallSemiBold)
-                                .foregroundColor(Color.Text.grey)
-                                .padding(.leading)
-                            Text("Vote Average : " + viewModel.movie.voteAverage.description)
-                                .font(Font.Body.smallSemiBold)
-                                .foregroundColor(Color.Text.grey)
-                                .padding(.leading)
-                        }
-                        Spacer()
-                        Button {
-                            print("add to favourite")
-                        } label: {
-                            Image(systemName: "heart.fill")
-                                .font(.system(size :20))
-                                .foregroundColor(Color.white)
-                                .background {
-                                    Circle()
-                                        
-                                        .fill(
-                                            LinearGradient(gradient: Gradient(colors: [Color.pink,Color.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                                        )
-                                        .frame(width: 45,height: 45)
-                                        .shadow(color: .black, radius: 6,x: 0,y: 5)
-                                }
-                                .padding(.trailing,30)
-                        }
-                        
-                        Button {
-                            print("add to favourite")
-                        } label: {
-                            Image(systemName: "list.bullet.rectangle.fill")
-                                .font(.system(size :20))
-                                .foregroundColor(Color.white)
-                                .background {
-                                    Circle()
-                                        
-                                        .fill(
-                                            LinearGradient(gradient: Gradient(colors: [Color.blue,Color.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                                        )
-                                        .frame(width: 45,height: 45)
-                                        .shadow(color: .black, radius: 6,x: 0,y: 5)
-                                }
-                                .padding(.trailing,30)
-                        }
-
-                    }
-                    Text(viewModel.movie.overview)
-                        .font(Font.Body.smallDescription)
-                        .foregroundColor(Color.Text.grey)
-                        .padding()
-                    Text("Similar Movies")
                         .padding(.leading)
-                        .font(Font.Heading.medium)
-                        .foregroundColor(Color.Text.charcoal)
-                    
-                    ScrollView(.horizontal,showsIndicators: false) {
-                        LazyHStack {
-                            ForEach(viewModel.similarMovies) { movie in
-                                SimilarMovieCellView(viewModel: .init(movie: movie))
-                                        .frame(width:150)
+                    ScrollView {
+                        
+                        VStack(alignment:.leading) {
+                            HStack {
+                                VStack(alignment:.leading) {
+                                    Text("Release date : " + (viewModel.movie.releaseDate ?? "Not mentioned"))
+                                        .font(Font.Body.smallSemiBold)
+                                        .foregroundColor(Color.Text.grey)
+                                        .padding(.leading)
+                                    Text("Vote Average : " + (viewModel.movie.voteAverage?.description ?? "Not mentioned"))
+                                        .font(Font.Body.smallSemiBold)
+                                        .foregroundColor(Color.Text.grey)
+                                        .padding(.leading)
+                                }
+                                Spacer()
+                                Button {
+                                    print("add to favourite")
+                                } label: {
+                                    Image(systemName: "heart.fill")
+                                        .font(.system(size :20))
+                                        .foregroundColor(Color.white)
+                                        .background {
+                                            Circle()
+                                            
+                                                .fill(
+                                                    LinearGradient(gradient: Gradient(colors: [Color.pink,Color.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                )
+                                                .frame(width: 45,height: 45)
+                                                .shadow(color: Color.Text.charcoal, radius: 6,x: 0,y: 5)
+                                        }
+                                        .padding(.trailing,30)
+                                }
+                                
+                                Button {
+                                    print("add to favourite")
+                                } label: {
+                                    Image(systemName: "list.bullet.rectangle.fill")
+                                        .font(.system(size :20))
+                                        .foregroundColor(Color.white)
+                                        .background {
+                                            Circle()
+                                            
+                                                .fill(
+                                                    LinearGradient(gradient: Gradient(colors: [Color.blue,Color.gray]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                                                )
+                                                .frame(width: 45,height: 45)
+                                                .shadow(color: Color.Text.charcoal, radius: 6,x: 0,y: 5)
+                                        }
+                                        .padding(.trailing,30)
+                                }
                                 
                             }
-                        }
-                    }
-                    .frame(height: 200)
-                    .padding(.leading)
-                    
-                    Text("Cast")
-                        .font(Font.Heading.medium)
-                        .foregroundColor(Color.Text.charcoal)
-                        .padding(.leading)
-                    
-                    
-                    
-                    ScrollView(.horizontal,showsIndicators: false) {
-                        LazyHStack {
-                            ForEach(viewModel.cast) { cast in
-                                CastMovieCellView(viewModel: .init(cast: cast))
-                                        .frame(width:120)
-
+                            .padding(.top)
+                            Text(viewModel.movie.overview)
+                                .font(Font.Body.smallDescription)
+                                .foregroundColor(Color.Text.grey)
+                                .padding()
+                            Text("Similar Movies")
+                                .padding(.leading)
+                                .font(Font.Heading.medium)
+                                .foregroundColor(Color.Text.charcoal)
+                            
+                            ScrollView(.horizontal,showsIndicators: false) {
+                                LazyHStack {
+                                    ForEach(viewModel.similarMovies) { movie in
+                                        SimilarMovieCellView(viewModel: .init(movie: movie))
+                                            .frame(width:150)
+                                        
+                                    }
+                                }
                             }
+                            .frame(height: 200)
+                            .padding(.leading)
+                            
+                            Text("Cast")
+                                .font(Font.Heading.medium)
+                                .foregroundColor(Color.Text.charcoal)
+                                .padding(.leading)
+                            
+                            
+                            
+                            ScrollView(.horizontal,showsIndicators: false) {
+                                LazyHStack {
+                                    ForEach(viewModel.cast) { cast in
+                                        CastMovieCellView(viewModel: .init(cast: cast))
+                                            .frame(width:120)
+                                        
+                                    }
+                                }
+                            }
+                            .frame(height: 170)
+                            .padding(.leading)
+                            Spacer(minLength: 80)
                         }
                     }
-                    .frame(height: 170)
-                    .padding(.leading)
-                }
-                
                     
-                
-                
-                Spacer(minLength: 80)
-            }
+                }
         }
         .frame(maxWidth: .infinity)
         .padding(.top,10)
