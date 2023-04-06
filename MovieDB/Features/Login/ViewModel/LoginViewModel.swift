@@ -15,6 +15,8 @@ final class LoginViewModel : ObservableObject {
     
     let token = "076c9dad29e213f91dbbe7a82aa1da1d"
     
+    var session : String = ""
+    
     @Published var validUserName : Bool = false
     @Published var validPassword : Bool = false
     
@@ -42,7 +44,7 @@ final class LoginViewModel : ObservableObject {
 // MARK: - IB Actions
 
 extension LoginViewModel {
-
+    
     func loginTapped() async {
         do {
             await MainActor.run(body: {
@@ -51,12 +53,17 @@ extension LoginViewModel {
             
             let session =  try await self.loginService.login(userName: userName, password: password)
             
-            await MainActor.run(body: {
-                isLoading = false
-                self.navigateToNextScreen = true
-            })
+            if let sessionID = session.sessionID {
+                await MainActor.run(body: {
+                    
+                    isLoading = false
+                    navigateToNextScreen = true
+                    self.session = sessionID
+                })
+            } else if let statusMessage = session.statusMessage {
+                throw NSError.init(domain: "Login Error \(statusMessage)", code: 101, userInfo: [NSLocalizedDescriptionKey: LoginError.invalidSession.localizedDescription])
+            }
             
-            print(session.sessionID as Any)
         } catch {
             await MainActor.run(body: {
                 isLoading = false

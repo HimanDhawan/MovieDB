@@ -10,28 +10,28 @@ import SwiftUI
 struct SimilarMovieCellView: View {
     @StateObject var viewModel : SimilarMovieCellViewModel
     var body: some View {
-        VStack(alignment: .center,spacing: 0) {
+        VStack(alignment: .leading,spacing: 5) {
             Spacer()
             if let image = viewModel.image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: viewModel.error ? .fit : .fill)
                     .cornerRadius(10)
-                    .frame(width: 100, height: 144)
+                    .frame(width: 110, height: 144)
                     
             } else {
                 ProgressView()
                     .frame(width: 110, height: 144)
             }
             
-            VStack(alignment: .leading) {
-                Text(viewModel.movie.originalTitle)
-                    .lineLimit(nil)
-                    .font(Font.Body.smallSemiBold)
-                    .foregroundColor(Color.Text.charcoal)
-                    .padding(.top,5)
-                
-            }
+//            VStack(alignment: .leading) {
+//                Text(viewModel.movie.originalTitle)
+//                    .lineLimit(nil)
+//                    .font(Font.Body.smallSemiBold)
+//                    .foregroundColor(Color.Text.charcoal)
+//                    .padding(.top,5)
+//                
+//            }
             Spacer()
         }
         .onAppear{

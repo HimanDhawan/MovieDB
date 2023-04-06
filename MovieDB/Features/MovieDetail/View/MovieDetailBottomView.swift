@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MovieDetailBottomView: View {
-    @ObservedObject var viewModel : MovieDetailViewModel
-
+    @StateObject var viewModel : MovieDetailViewModel
+    @State var selectedMovie : Movies? = nil
+            
     var body: some View {
         VStack(){
             Rectangle()
@@ -22,7 +23,6 @@ struct MovieDetailBottomView: View {
                         .foregroundColor(Color.Text.charcoal)
                         .padding(.leading)
                     ScrollView {
-                        
                         VStack(alignment:.leading) {
                             HStack {
                                 VStack(alignment:.leading) {
@@ -83,47 +83,83 @@ struct MovieDetailBottomView: View {
                                 .font(Font.Heading.medium)
                                 .foregroundColor(Color.Text.charcoal)
                             
-                            ScrollView(.horizontal,showsIndicators: false) {
-                                LazyHStack {
-                                    ForEach(viewModel.similarMovies) { movie in
-                                        SimilarMovieCellView(viewModel: .init(movie: movie))
-                                            .frame(width:150)
-                                        
-                                    }
+                            if let error = self.viewModel.similarMovieListError  {
+                                HStack {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                    Text(error)
+                                        .font(Font.Body.smallDescription)
+                                        .foregroundColor(Color.Text.grey)
                                 }
+                                .padding([.bottom,.leading])
+                            } else if viewModel.similarMovies.count > 0 {
+                                ScrollView(.horizontal,showsIndicators: false) {
+                                    LazyHStack {
+                                        ForEach(viewModel.similarMovies) { movie in
+                                            NavigationLink(destination: MovieDetailView(movie: movie)) {
+                                                SimilarMovieCellView(viewModel: .init(movie: movie))
+                                                    .frame(width:130)
+//                                                    .onTapGesture {
+//                                                        selectedMovie = movie
+//                                                    }
+                                            }
+                                            
+                                        }
+                                    }
+                                    
+
+                                }
+                                
+                                
+                                .frame(height: 200)
+                                .padding([.bottom,.leading])
+                            } else {
+                                ProgressView()
                             }
-                            .frame(height: 200)
-                            .padding(.leading)
                             
                             Text("Cast")
                                 .font(Font.Heading.medium)
                                 .foregroundColor(Color.Text.charcoal)
                                 .padding(.leading)
                             
-                            
-                            
-                            ScrollView(.horizontal,showsIndicators: false) {
-                                LazyHStack {
-                                    ForEach(viewModel.cast) { cast in
-                                        CastMovieCellView(viewModel: .init(cast: cast))
-                                            .frame(width:120)
-                                        
+                            if let error = self.viewModel.castListError  {
+                                HStack {
+                                    Image(systemName: "exclamationmark.triangle.fill")
+                                    Text(error)
+                                        .font(Font.Body.smallDescription)
+                                        .foregroundColor(Color.Text.grey)
+                                }
+                                .padding()
+                            } else if viewModel.cast.count > 0 {
+                                ScrollView(.horizontal,showsIndicators: false) {
+                                    LazyHStack {
+                                        ForEach(viewModel.cast) { cast in
+                                            CastMovieCellView(viewModel: .init(cast: cast))
+                                                .frame(width:120)
+                                            
+                                        }
                                     }
                                 }
+                                .frame(height: 170)
+                                .padding(.leading)
+                            } else {
+                                ProgressView()
                             }
-                            .frame(height: 170)
-                            .padding(.leading)
+                            
+                            
                             Spacer(minLength: 80)
                         }
+                        
+                        
                     }
-                    
                 }
         }
+        .preference(key: SimilarMovieSelectionPreferenceKey.self,value : self.selectedMovie)
         .frame(maxWidth: .infinity)
         .padding(.top,10)
         .background(Color.Text.systemBlack)
         .cornerRadius(20)
         .onAppear{
+            print("onAppear bottom")
             Task {
                 await self.viewModel.getSimilarMovies()
             }
@@ -135,7 +171,11 @@ struct MovieDetailBottomView: View {
 }
 
 struct MovieDetailBottomView_Previews: PreviewProvider {
+    @State static var movieDetailScroll : CGPoint = .zero
     static var previews: some View {
-        MovieDetailBottomView(viewModel: .init(movie: .init(id: 123, adult: false, originalTitle: "RRR", overview: "RRR is very good movie", title: "RRR", posterPath: "/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg", releaseDate: "12-20-23", voteAverage: 2), dataService: MovieDetailDataService()))
+        NavigationView {
+            MovieDetailBottomView(viewModel: .init(movie: .init(id: 123, adult: false, originalTitle: "RRR", overview: "RRR is very good movie", title: "RRR", posterPath: "/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg", releaseDate: "12-20-23", voteAverage: 2), dataService: MovieDetailDataService()))
+
+        }
     }
 }

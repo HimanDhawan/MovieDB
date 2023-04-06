@@ -18,6 +18,7 @@ extension Color {
         static let loaderColor : Color = Color("Loader")
         static let white: Color = Color.white
         static let blue: Color = Color.blue
+        static let errorButtonColor : Color = Color("ErrorButtonColor")
     }
     
 }

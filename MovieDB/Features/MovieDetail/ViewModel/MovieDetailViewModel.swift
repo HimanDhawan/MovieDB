@@ -10,12 +10,16 @@ import Combine
 import UIKit
 
 class MovieDetailViewModel : ObservableObject {
-    let movie : Movies
+    @Published var movie : Movies
     
     @Published var cast : [Cast] = []
     @Published var similarMovies : [Movies] = []
     @Published var image : UIImage? = nil
     @Published var isOriginal : Bool = false
+    @Published var similarMovieListError : String? = nil
+    @Published var castListError : String? = nil
+    
+    @Published var similarMovieSelected : Movies? = nil
     
     var anyCancelabels : Set<AnyCancellable> = []
     
@@ -50,11 +54,19 @@ class MovieDetailViewModel : ObservableObject {
 
         do {
             let list : [Movies] = try await dataService.getSimilarMovies(movie: self.movie)
-            await MainActor.run(body: {
-                self.similarMovies = list
-            })
+            if list.count == 0 {
+                throw NSError.init(domain: "Similar Error", code: 101, userInfo: [NSLocalizedDescriptionKey: "No similar movies found."])
+            } else {
+                await MainActor.run(body: {
+                    self.similarMovies = list
+                })
+            }
             
         } catch {
+            await MainActor.run(body: {
+                similarMovieListError = error.localizedDescription
+            })
+            
             print("Error \(error)")
         }
         
@@ -64,11 +76,19 @@ class MovieDetailViewModel : ObservableObject {
 
         do {
             let list : [Cast] = try await dataService.getCasts(movie: self.movie)
-            await MainActor.run(body: {
-                self.cast = list
-            })
+            
+            if list.count == 0 {
+                throw NSError.init(domain: "Cast Error", code: 101, userInfo: [NSLocalizedDescriptionKey: "No casts found."])
+            } else {
+                await MainActor.run(body: {
+                    self.cast = list
+                })
+            }
             
         } catch {
+            await MainActor.run(body: {
+                castListError = error.localizedDescription
+            })
             print("Error \(error)")
         }
         

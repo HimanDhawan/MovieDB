@@ -13,6 +13,7 @@ extension Font {
     enum Heading {
         static var medium: Font = Font.custom("Poppins-SemiBold", size: 23)
         static var small: Font = Font.custom("Poppins-SemiBold", size: 22)
+        static var smallTitle: Font = Font.custom("Poppins-SemiBold", size: 19)
     }
     
     enum Body {

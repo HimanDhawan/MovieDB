@@ -19,6 +19,10 @@ struct MovieDetailView: View {
     @State var currentOffset : CGFloat = .zero
     @State var endingOffsetY : CGFloat = .zero
     
+    @State var movieDetailScroll : CGPoint = .zero
+    
+    
+    
     init(movie : Movies, dataService : MovieDetailDataServiceProtocol = MovieDetailDataService() ) {
         _viewModel = StateObject(wrappedValue: MovieDetailViewModel.init(movie: movie, dataService: dataService))
     }
@@ -56,10 +60,14 @@ struct MovieDetailView: View {
             }
             
             MovieDetailBottomView(viewModel: viewModel)
+                .onPreferenceChange(SimilarMovieSelectionPreferenceKey.self) { value in
+                    if let movi = value {
+                        //self.viewModel.movie = movi
+                    }
+                }
                 .offset(y: offset)
                 .offset(y : currentOffset)
                 .offset(y: endingOffsetY)
-                
                 .gesture(
                     DragGesture()
                         .onChanged({ value in
@@ -80,11 +88,19 @@ struct MovieDetailView: View {
                             }
                         })
                 )
+            
+            
         }
+        .onChange(of: self.viewModel.movie, perform: { newValue in
+            Task {
+                await self.viewModel.showImage()
+            }
+        })
         .onAppear{
             Task {
                 await self.viewModel.showImage()
             }
+            
         }
         .background(Color.Text.systemWhite)
         .navigationBarBackButtonHidden(true)

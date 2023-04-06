@@ -15,7 +15,7 @@ struct CastMovieCellView: View {
             if let image = viewModel.image {
                 Image(uiImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: (viewModel.error == nil) ? .fill : .fit)
                     .cornerRadius(10)
                     .padding(.top,40)
                     .padding(.trailing,5)

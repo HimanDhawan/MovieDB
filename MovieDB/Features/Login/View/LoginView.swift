@@ -46,8 +46,9 @@ struct LoginView: View {
     
     var fullImage : some View {
         Image("background")
-            .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height)
-            .aspectRatio(contentMode: .fit)
+            
+            .frame(width: UIScreen.main.bounds.width)
+            .aspectRatio(contentMode: .fill)
             .opacity(1)
             .overlay {
                 Color.black

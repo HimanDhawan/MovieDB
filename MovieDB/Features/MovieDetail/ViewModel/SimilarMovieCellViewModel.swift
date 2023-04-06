@@ -14,6 +14,7 @@ class SimilarMovieCellViewModel : ObservableObject {
     let dataService : SimilarMovieCellDataServiceProtocol
     
     @Published var image : UIImage? = nil
+    var error : Bool = false
     
     init(movie: Movies, dataService : SimilarMovieCellDataServiceProtocol = SimilarMovieCellDataService()) {
         self.movie = movie
@@ -26,11 +27,13 @@ class SimilarMovieCellViewModel : ObservableObject {
             let image = try await dataService.getImageURL(movie: self.movie)
             await MainActor.run(body: {
                 self.image = image
+                error = false
             })
             
         } catch {
             await MainActor.run(body: {
                 self.image = UIImage(systemName: "photo.artframe")
+                self.error = true
             })
             
             print(error)

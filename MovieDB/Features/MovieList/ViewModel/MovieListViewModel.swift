@@ -14,26 +14,10 @@ class MovieListViewModel : ObservableObject {
     @Published var movies : [Movies] = []
     @Published var moviesCount : String = "0"
     
-    @Published var selectedMovie: Movies? = nil
-    @Published var isSelected: Bool = false
-    
-    let movieListService : MovieListDataServiceProtocol
-    
-    init(movieListService: MovieListDataServiceProtocol) {
-        self.movieListService = movieListService
+    init(movie: [Movies]) {
+        self.movies = movie
+        self.moviesCount = movie.count.description
     }
     
-    func getAllPopularMovies() async {
-        do {
-            let movies  = try await self.movieListService.getAllPopularMovies()
-            await MainActor.run(body: {
-                self.movies = movies
-                self.moviesCount = movies.count.description
-            })
-        } catch {
-            print("Error \(error)")
-        }
-
-    }
     
 }

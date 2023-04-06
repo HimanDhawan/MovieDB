@@ -13,7 +13,7 @@ class MovieResultData : Codable {
     let results : [Movies]
 }
 
-struct Movies : Codable, Identifiable {
+struct Movies : Codable, Identifiable, Equatable {
     let id : Int
     let adult : Bool
     let originalTitle : String

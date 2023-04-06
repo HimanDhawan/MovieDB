@@ -14,6 +14,7 @@ class CastMovieCellViewModel : ObservableObject {
     let dataService : CastMovieCellDataServiceProtocol
     
     @Published var image : UIImage? = nil
+    @Published var error : String? = nil
     
     init(cast: Cast, dataService : CastMovieCellDataServiceProtocol = CastMovieCellDataService()) {
         self.cast = cast
@@ -22,7 +23,9 @@ class CastMovieCellViewModel : ObservableObject {
         
     func getImageURL() async {
         do {
-            
+            await MainActor.run(body: {
+                self.error = nil
+            })
             let image = try await dataService.getImageURL(cast: self.cast)
             await MainActor.run(body: {
                 self.image = image
@@ -31,6 +34,7 @@ class CastMovieCellViewModel : ObservableObject {
         } catch {
             await MainActor.run(body: {
                 self.image = UIImage(systemName: "photo.artframe")
+                self.error = error.localizedDescription
             })
             
             print(error)

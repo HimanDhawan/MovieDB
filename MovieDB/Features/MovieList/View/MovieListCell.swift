@@ -50,3 +50,9 @@ struct MovieListCell: View {
         
     }
 }
+
+struct MovieListCell_Previews: PreviewProvider {
+    static var previews: some View {
+        MovieListCell(movie: .init(id: 123, adult: false, originalTitle: "RRR", overview: "RRR is very good movie", title: "RRR", posterPath: "/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg", releaseDate: "12-20-23", voteAverage: 2))
+    }
+}
